@@ -57,24 +57,15 @@
 
   exports.RainbowFlower.prototype.tick = function(phase) {
     this.ctx.save();
-    this.ctx.globalCompositeOperation = 'source-over';
-    this.ctx.fillStyle = '#000';
-    this.ctx.strokeStyle = 'none';
-    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
-    this.ctx.globalCompositeOperation = 'lighter';
-    this.ctx.lineWidth = 30;
-    this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
-    this.ctx.rotate(phase * Math.PI * 2);
-    for (var i = 0; i < this.lines.length; i++) {
-      this.lines[i].draw(this.ctx, phase);
+    {
+      this.ctx.globalCompositeOperation = 'lighter';
+      this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
+      this.ctx.rotate(phase * Math.PI * 2);
+      for (var i = 0; i < this.lines.length; i++) {
+        this.lines[i].draw(this.ctx, phase);
+      }
     }
     this.ctx.restore();
 
-    if (this.debug) {
-      this.ctx.fillStyle = '#fff';
-      this.ctx.font = '16px sans-serfif';
-      this.ctx.fillText(phase.toFixed(2), 0, this.canvas.height);
-    }
   };
-})(window.animations = {});
+})(window.animations = window.animations || {});
