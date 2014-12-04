@@ -1,0 +1,10 @@
+{
+  "globalstrict": false,
+  "strict": false,
+  "browser": true,
+  "esnext": true,
+
+  "globals": {
+    "console": false
+  }
+}

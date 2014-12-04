@@ -1,0 +1,13 @@
+{
+  "name": "jaz",
+  "dependencies": {
+    "traceur": "0.0.79"
+  },
+  "devDependencies": {
+    "browserify": "^7.0.0",
+    "es6ify": "^1.5.1",
+    "gulp": "^3.8.10",
+    "gulp-webserver": "^0.8.7",
+    "vinyl-source-stream": "^1.0.0"
+  }
+}
