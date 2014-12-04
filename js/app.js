@@ -1,33 +1,67 @@
 (function() {
   'use strict';
 
-  var canvas = document.createElement('canvas');
-  canvas.width = 800;
-  canvas.height = 800;
-  document.body.appendChild(canvas);
-  var ctx = canvas.getContext('2d');
+  var animSets;
+
+  function init() {
+    animSets = [];
+    var container = document.querySelector('.container');
+    if (container) {
+      document.body.removeChild(container);
+    }
+
+    container = document.createElement('div');
+    container.classList.add('container');
+    container.style['align-items'] = 'stretch';
+    document.body.appendChild(container);
+
+    var c;
+    for (var key in animations) {
+      c = document.createElement('canvas');
+      container.appendChild(c);
+      animSets.push({
+        animationClass: animations[key],
+        canvas: c,
+        ctx: c.getContext('2d'),
+      });
+    }
+
+    var desiredSize = document.body.clientWidth / animSets.length;
+    if (desiredSize > document.body.clientHeight) {
+      desiredSize = document.body.clientHeight;
+    }
+    desiredSize -= 50;
+
+    animSets.forEach(function(set) {
+      set.canvas.width = desiredSize;
+      set.canvas.height = desiredSize;
+      set.animation = new set.animationClass(set.canvas);
+    });
+
+    container.style['align-items'] = 'center';
+  }
+
+  init();
+  var resizeDebounce = null;
+  window.addEventListener('resize', function() {
+    clearTimeout(resizeDebounce);
+    resizeDebounce = setTimeout(init, 100);
+  });
 
   var phase = 0;
-  // var animation = new animations.RainbowFlower(canvas);
-  var animation = new animations.Pulse(canvas);
 
   function tick() {
-    ctx.fillStyle = '#000';
-    ctx.strokeStyle = 'none';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     phase = phase + 0.002;
     while (phase > 1.0) {
       phase -= 1.0;
     }
-    animation.tick(phase);
 
-    var debug = false;
-    if (debug) {
-      ctx.fillStyle = '#fff';
-      ctx.font = '16px sans-serfif';
-      ctx.fillText(phase.toFixed(2), 0, canvas.height);
-    }
+    animSets.forEach(function(set) {
+      set.ctx.fillStyle = '#000';
+      set.ctx.strokeStyle = 'none';
+      set.ctx.fillRect(0, 0, set.canvas.width, set.canvas.height);
+      set.animation.tick(phase);
+    });
 
     requestAnimationFrame(tick);
   }
