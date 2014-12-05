@@ -1,8 +1,9 @@
 import {RainbowFlower} from './animations/rainbow-flower.js';
 import {Pulse} from './animations/pulse.js';
 import {Forever} from './animations/forever.js';
+import {Zoom} from './animations/zoom.js';
 
-var animations = [RainbowFlower, Pulse, Forever];
+var animations = [RainbowFlower, Pulse, Forever, Zoom];
 var animSets;
 
 function init() {
