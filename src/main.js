@@ -1,8 +1,8 @@
-import {RainbowFlower} from './rainbow-flower.js';
-import {Pulse} from './pulse.js';
+import {RainbowFlower} from './animations/rainbow-flower.js';
+import {Pulse} from './animations/pulse.js';
+import {Forever} from './animations/forever.js';
 
-var animations = [RainbowFlower, Pulse];
-
+var animations = [RainbowFlower, Pulse, Forever];
 var animSets;
 
 function init() {
@@ -59,12 +59,12 @@ function tick() {
     phase -= 1.0;
   }
 
-  animSets.forEach(function(set) {
+  for (var set of animSets) {
     set.ctx.fillStyle = '#000';
     set.ctx.strokeStyle = 'none';
     set.ctx.fillRect(0, 0, set.canvas.width, set.canvas.height);
     set.animation.tick(phase);
-  });
+  }
 
   requestAnimationFrame(tick);
 }

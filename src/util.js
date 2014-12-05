@@ -19,3 +19,15 @@ export function hsla(h, s, l, a) {
   a = a || 1.0;
   return 'hsla(' + h + ',' + s + '%,' + l + '%,' + a + ')';
 }
+
+export class OptLoader {
+  constructor(opts, defaults={}) {
+    var key;
+    for (key in opts) {
+      defaults[key] = opts[key];
+    }
+    for (key in defaults) {
+      this[key] = defaults[key];
+    }
+  }
+}

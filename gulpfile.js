@@ -1,9 +1,6 @@
 var browserify = require('browserify');
 var es6ify = require('es6ify');
 var gulp = require('gulp');
-// var source = require('vinyl-source-stream');
-// var traceur = require('gulp-traceur');
-var rimraf = require('rimraf');
 var webserver = require('gulp-webserver');
 var fs = require('fs');
 
@@ -16,7 +13,6 @@ gulp.task('build', function() {
     .pipe(fs.createWriteStream('./app.js'));
 });
 
-gulp.task('server', ['build'], function() {
-  return gulp.src(['.', 'dist'])
-    .pipe(webserver());
+gulp.task('watch', function () {
+  return gulp.watch('src/**/*.js', ['build']);
 });
