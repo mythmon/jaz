@@ -3,6 +3,7 @@ var es6ify = require('es6ify');
 var gulp = require('gulp');
 var webserver = require('gulp-webserver');
 var fs = require('fs');
+var ghPages = require('gulp-gh-pages');
 
 gulp.task('build', function() {
   return browserify({ debug: true })
@@ -15,4 +16,9 @@ gulp.task('build', function() {
 
 gulp.task('watch', function () {
   return gulp.watch('src/**/*.js', ['build']);
+});
+
+gulp.task('deploy', ['build'], function() {
+  return gulp.src(['./index.html', './style.css', './app.js'])
+    .pipe(ghPages());
 });
