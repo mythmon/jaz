@@ -2,22 +2,29 @@ import {RainbowFlower} from './animations/rainbow-flower.js';
 import {Pulse} from './animations/pulse.js';
 import {Forever} from './animations/forever.js';
 import {Zoom} from './animations/zoom.js';
+import {PogoStick} from './animations/pogo.js';
 
-var animations = [RainbowFlower, Pulse, Forever, Zoom];
+var animations = [RainbowFlower, Pulse, Forever, Zoom, PogoStick];
 var animSets;
 
 /* Calculate how big to make cells so that when they are tiled in a grid
  * across the entire screen, they fill the screen in roughly the same
  * aspect ratio as the screen.
  */
-function calculateCellSize(numCells) {
-  var screenArea = document.body.clientWidth * document.body.clientHeight;
+function calculateCellSize(numCells, margin=50) {
+  var screenWidth = document.body.clientWidth - margin;
+  var screenHeight = document.body.clientHeight - margin;
+
+  var screenArea = screenWidth * screenHeight;
   var multiplier = Math.sqrt(numCells / screenArea);
-  var cellsNumWide = Math.ceil(document.body.clientWidth * multiplier);
-  var cellsNumTall = Math.ceil(document.body.clientHeight * multiplier);
-  var cellWidth = document.body.clientWidth / cellsNumWide;
-  var cellHeight = document.body.clientHeight / cellsNumTall;
-  return Math.max(cellWidth, cellHeight) * 0.8;
+
+  var cellsNumWide = Math.ceil(screenWidth * multiplier);
+  var cellsNumTall = Math.ceil(screenHeight * multiplier);
+
+  var cellWidth = screenWidth / cellsNumWide;
+  var cellHeight = screenHeight / cellsNumTall;
+
+  return Math.min(cellWidth, cellHeight) * 0.8;
 }
 
 function init() {
