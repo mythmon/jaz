@@ -14,7 +14,7 @@ gulp.task('build', function() {
     .pipe(fs.createWriteStream('./app.js'));
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', ['build'], function () {
   return gulp.watch('src/**/*.js', ['build']);
 });
 

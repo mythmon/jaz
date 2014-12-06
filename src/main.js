@@ -6,6 +6,20 @@ import {Zoom} from './animations/zoom.js';
 var animations = [RainbowFlower, Pulse, Forever, Zoom];
 var animSets;
 
+/* Calculate how big to make cells so that when they are tiled in a grid
+ * across the entire screen, they fill the screen in roughly the same
+ * aspect ratio as the screen.
+ */
+function calculateCellSize(numCells) {
+  var screenArea = document.body.clientWidth * document.body.clientHeight;
+  var multiplier = Math.sqrt(numCells / screenArea);
+  var cellsNumWide = Math.ceil(document.body.clientWidth * multiplier);
+  var cellsNumTall = Math.ceil(document.body.clientHeight * multiplier);
+  var cellWidth = document.body.clientWidth / cellsNumWide;
+  var cellHeight = document.body.clientHeight / cellsNumTall;
+  return Math.max(cellWidth, cellHeight) * 0.8;
+}
+
 function init() {
   animSets = [];
   var container = document.querySelector('.container');
@@ -15,33 +29,23 @@ function init() {
 
   container = document.createElement('div');
   container.classList.add('container');
-  container.style['align-items'] = 'stretch';
   document.body.appendChild(container);
 
+  var desiredSize = calculateCellSize(animations.length);
   var c;
-  for (var key in animations) {
+  for (var animation of animations) {
     c = document.createElement('canvas');
+    c.width = desiredSize;
+    c.height = desiredSize;
+    c.style['flex-basis'] = desiredSize;
     container.appendChild(c);
     animSets.push({
-      animationClass: animations[key],
+      animationClass: animation,
       canvas: c,
       ctx: c.getContext('2d'),
+      animation: new animation(c),
     });
   }
-
-  var desiredSize = document.body.clientWidth / animSets.length;
-  if (desiredSize > document.body.clientHeight) {
-    desiredSize = document.body.clientHeight;
-  }
-  desiredSize -= 50;
-
-  animSets.forEach(function(set) {
-    set.canvas.width = desiredSize;
-    set.canvas.height = desiredSize;
-    set.animation = new set.animationClass(set.canvas);
-  });
-
-  container.style['align-items'] = 'center';
 }
 
 init();
