@@ -65,9 +65,15 @@ window.addEventListener('resize', function() {
 });
 
 var phase = 0;
+var phasePerMs = 9e-5
+var lastTick = +new Date();
 
 function tick() {
-  phase = phase + 0.002;
+  var now = +new Date();
+  var dt = now - lastTick;
+  lastTick = now;
+
+  phase = phase + dt * phasePerMs;
   while (phase > 1.0) {
     phase -= 1.0;
   }
