@@ -1,5 +1,5 @@
-import {rgba, OptLoader} from '../util.js';
-import {phaseMod, cosNorm} from '../cycles.js';
+import {rgba, phaseMod, cosNorm} from '../utils.js';
+import {OptLoader} from '../bases.js';
 
 export class Pulse {
   constructor(canvas) {

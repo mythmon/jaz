@@ -1,4 +1,5 @@
-import {range, hsla, OptLoader} from '../util.js';
+import {range, hsla} from '../utils.js';
+import {OptLoader} from '../bases.js';
 
 export class RainbowFlower {
   constructor(canvas) {

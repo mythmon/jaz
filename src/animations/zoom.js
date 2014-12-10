@@ -1,5 +1,4 @@
-import {rgba, hsla} from '../util.js';
-import {phaseMod} from '../cycles.js';
+import {rgba, hsla, phaseMod} from '../utils.js';
 
 export class Zoom {
   constructor(canvas) {

@@ -3,8 +3,9 @@ import {Pulse} from './animations/pulse.js';
 import {Forever} from './animations/forever.js';
 import {Zoom} from './animations/zoom.js';
 import {PogoStick} from './animations/pogo.js';
+import {March} from './animations/march.js';
 
-var animations = [RainbowFlower, Pulse, Forever, Zoom, PogoStick];
+var animations = [RainbowFlower, Pulse, Forever, Zoom, PogoStick, March];
 var animSets;
 
 /* Calculate how big to make cells so that when they are tiled in a grid

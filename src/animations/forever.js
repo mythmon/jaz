@@ -1,5 +1,5 @@
-import {OptLoader} from '../util.js';
-import {phaseMod, sinNorm} from '../cycles.js';
+import {phaseMod, sinNorm} from '../utils.js';
+import {OptLoader} from '../bases.js';
 
 export class Forever {
   constructor(canvas) {
@@ -21,7 +21,7 @@ export class Forever {
         x: size * x,
         y: size * y,
         size: size,
-        speed: (x + y) % 2 === 0 ? 1 : -1,
+        mult: (x + y) % 2 === 0 ? 1 : -1,
         offset: x / size / 2,
       });
     });
@@ -48,7 +48,7 @@ class Line extends OptLoader {
   }
 
   draw(ctx, phase) {
-    phase = phaseMod(phase, this.speed, this.offset);
+    phase = ((phase + this.offset) * this.mult) % 1.0;
     var s = this.size / 2;
     var x = this.x + s;
     var y = this.y + s;

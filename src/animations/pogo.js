@@ -1,5 +1,5 @@
-import {hsla, OptLoader, range} from '../util.js';
-import {phaseMod, sinNorm} from '../cycles.js';
+import {hsla, range, phaseMod, sinNorm} from '../utils.js';
+import {OptLoader} from '../bases.js';
 
 export class PogoStick {
   constructor(canvas) {
